@@ -24,6 +24,14 @@ const client = new Anthropic({
 
 export async function POST(req: NextRequest) {
   try {
+    // Check if Firebase Admin is properly initialized
+    if (!adminApp) {
+      return NextResponse.json(
+        { error: "서버 설정이 완료되지 않았습니다. 관리자에게 문의하세요." },
+        { status: 503 }
+      );
+    }
+
     const body: AnalyzeRequest = await req.json();
     const { b64, mediaType, idToken, year, month } = body;
 
@@ -36,10 +44,9 @@ export async function POST(req: NextRequest) {
     }
 
     // Verify Firebase ID token
-    let decodedToken;
     try {
       const auth = getAuth(adminApp);
-      decodedToken = await auth.verifyIdToken(idToken);
+      await auth.verifyIdToken(idToken);
     } catch (error) {
       return NextResponse.json(
         { error: "인증이 필요합니다" },
