@@ -1,0 +1,73 @@
+{
+  "name": "우리집 관리비",
+  "short_name": "관리비",
+  "description": "아파트 관리비 추적 및 관리 PWA",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#2d5a3d",
+  "background_color": "#f5f3ef",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "이미지 업로드",
+      "short_name": "업로드",
+      "description": "영수증 이미지를 스캔하여 AI 분석",
+      "url": "/?view=upload",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "전체 데이터",
+      "short_name": "데이터",
+      "description": "저장된 모든 관리비 데이터 조회",
+      "url": "/?view=table",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "categories": ["finance", "productivity"],
+  "prefer_related_applications": false
+}

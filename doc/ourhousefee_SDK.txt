@@ -1,0 +1,22 @@
+
+프로젝트 ID : ourhousefee
+프로젝트 번호 : 1017891466714
+
+
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyASJv4BpdDh0-VXfn6Pqu_LWT7qAbpszsU",
+  authDomain: "ourhousefee.firebaseapp.com",
+  projectId: "ourhousefee",
+  storageBucket: "ourhousefee.firebasestorage.app",
+  messagingSenderId: "1017891466714",
+  appId: "1:1017891466714:web:671ae270b5c296b67e64e3"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
