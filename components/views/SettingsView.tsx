@@ -41,34 +41,46 @@ export function SettingsView() {
   const [resetConfirm, setResetConfirm] = useState("");
   const [isResetting, setIsResetting] = useState(false);
 
+  // Success modal state
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+
   const handleSave = async () => {
+    console.log("[handleSave] Starting save...");
+
     if (!user?.uid || !apartmentName.trim()) {
+      console.log("[handleSave] Validation failed");
       setMessage({ type: "error", text: "아파트 이름은 필수입니다." });
       return;
     }
 
     setIsSaving(true);
     setMessage(null);
+    console.log("[handleSave] Saving to Firestore...");
 
     try {
       const currentUser = auth.currentUser;
       if (!currentUser) throw new Error("사용자 인증이 필요합니다");
 
       await saveUserProfile(user.uid, { apartmentName: apartmentName.trim(), address });
+      console.log("[handleSave] Firestore save completed");
 
       // Update store
       setUser({
         ...user,
         apartmentName: apartmentName.trim(),
       });
+      console.log("[handleSave] Store updated");
 
       setMessage({ type: "success", text: "설정이 저장되었습니다." });
+      setShowSuccessModal(true);
+      console.log("[handleSave] Success message set and modal shown");
     } catch (error) {
-      const message = error instanceof Error ? error.message : "저장 중 오류 발생";
-      setMessage({ type: "error", text: message });
-      console.error("Save error:", error);
+      const errorMsg = error instanceof Error ? error.message : "저장 중 오류 발생";
+      console.error("[handleSave] Error:", error);
+      setMessage({ type: "error", text: errorMsg });
     } finally {
       setIsSaving(false);
+      console.log("[handleSave] Finished");
     }
   };
 
@@ -579,6 +591,34 @@ export function SettingsView() {
           </Button>
         </div>
       </div>
+
+      {/* 저장 완료 모달 */}
+      {showSuccessModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-surface rounded-lg border border-app-border max-w-sm w-full shadow-xl">
+            {/* 모달 바디 */}
+            <div className="p-6 text-center space-y-4">
+              <div className="flex justify-center">
+                <CheckCircle className="w-12 h-12 text-green-600" />
+              </div>
+              <h3 className="text-lg font-semibold text-app-text">설정이 저장되었습니다</h3>
+              <p className="text-sm text-app-muted">아파트 정보가 성공적으로 저장되었습니다.</p>
+            </div>
+
+            {/* 모달 푸터 */}
+            <div className="border-t border-app-border p-6">
+              <Button
+                onClick={() => {
+                  setShowSuccessModal(false);
+                }}
+                className="w-full bg-green-600 hover:bg-green-700 text-white"
+              >
+                확인
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* 전체 초기화 모달 */}
       {showResetModal && (
