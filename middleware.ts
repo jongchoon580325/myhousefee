@@ -1,12 +1,11 @@
 import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
 
-export function middleware(request: NextRequest) {
+export function middleware() {
   const response = NextResponse.next();
 
   // Set COOP header to allow Google OAuth popups
+  // Only set COOP, remove restrictive COEP that breaks OAuth
   response.headers.set('Cross-Origin-Opener-Policy', 'same-origin-allow-popups');
-  response.headers.set('Cross-Origin-Embedder-Policy', 'require-corp');
 
   return response;
 }
